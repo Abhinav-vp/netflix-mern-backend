@@ -32,7 +32,7 @@ export default function Watchlist() {
                     // We need the TMDB API key to fetch movie details. I will use standard axios.
                     const response = await axios.get(`https://api.themoviedb.org/3/movie/${item.movieId}?api_key=17866d40be3a733fc9950af1b3b20909`);
                     return response.data;
-                } catch (error) {
+                } catch (_) {
                     try {
                         // Fallback to TV show search if movie fetch fails
                         const tvResponse = await axios.get(`https://api.themoviedb.org/3/tv/${item.movieId}?api_key=17866d40be3a733fc9950af1b3b20909`);
@@ -78,7 +78,7 @@ export default function Watchlist() {
                 ) : (
                     <div className="row">
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-                            {movies.map((movie) => (
+                            {movies.filter(movie => movie && movie.poster_path).map((movie) => (
                                 <div key={movie.id} style={{ position: 'relative' }}>
                                     <img
                                         src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
@@ -89,7 +89,7 @@ export default function Watchlist() {
                                         onClick={() => handleRemove(movie.id)}
                                         style={{ display: 'block', width: '100%', padding: '5px', backgroundColor: 'red', color: 'white', border: 'none', cursor: 'pointer' }}
                                     >
-                                        Remove Feature
+                                        Remove
                                     </button>
                                 </div>
                             ))}
