@@ -22,6 +22,7 @@ function Login() {
       );
 
       console.log(res.data);
+      const token=res.data.token;
       localStorage.setItem("token", res.data.token);
 
     const pendingMovie = localStorage.getItem("pendingMovie");
