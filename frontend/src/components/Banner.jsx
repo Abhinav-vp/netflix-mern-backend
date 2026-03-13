@@ -25,9 +25,10 @@ export default function Banner() {
     const handleAddToList = async () => {
         const token = localStorage.getItem("token");
         if (!token) {
+            localStorage.setItem("pendingMovie", movie.id);
             // alert("Please login to add movies to your list");
             navigate("/login");
-            return;
+            return;  
         }
 
         try {

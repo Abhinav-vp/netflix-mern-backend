@@ -23,6 +23,21 @@ function Login() {
 
       console.log(res.data);
       localStorage.setItem("token", res.data.token);
+
+    const pendingMovie = localStorage.getItem("pendingMovie");
+
+    if (pendingMovie) {
+      await axios.post(
+        "/api/watchlist",
+        { movieId: pendingMovie },
+        {
+          headers: { Authorization: `Bearer ${token}` }
+        }
+      );
+
+      localStorage.removeItem("pendingMovie");
+    }
+
       alert("Login successful");
       navigate("/");
 
