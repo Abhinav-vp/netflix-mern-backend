@@ -13,6 +13,8 @@ export default function Navbar() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
+    const isAuthenticated = !!localStorage.getItem("token");
+
     const handleLogout = () => {
         localStorage.removeItem("token");
         navigate("/login");
@@ -27,13 +29,21 @@ export default function Navbar() {
                 <li>
                     <Link to="/">Home</Link>
                 </li>
+                {isAuthenticated && (
+                    <li>
+                        <Link to="/watchlist">My List</Link>
+                    </li>
+                )}
                 <li>
-                    <Link to="/watchlist">My List</Link>
-                </li>
-                <li>
-                    <button className="navbar__logout" onClick={handleLogout}>
-                        Sign Out
-                    </button>
+                    {isAuthenticated ? (
+                        <button className="navbar__logout" onClick={handleLogout}>
+                            Sign Out
+                        </button>
+                    ) : (
+                        <button className="navbar__logout" onClick={() => navigate("/login")}>
+                            Sign In
+                        </button>
+                    )}
                 </li>
             </ul>
         </nav>
