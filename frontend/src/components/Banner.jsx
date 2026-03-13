@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import axios from "../services/tmdb";
+import axios from "axios";
+import tmdbAxios from "../services/tmdb";
 import { requests } from "../services/tmdb";
 import { useNavigate } from "react-router-dom";
 
@@ -9,7 +10,7 @@ export default function Banner() {
 
     useEffect(() => {
         async function fetchData() {
-            const response = await axios.get(requests.fetchTrending);
+            const response = await tmdbAxios.get(requests.fetchTrending);
             const results = response.data.results;
             const randomMovie = results[Math.floor(Math.random() * results.length)];
             setMovie(randomMovie);

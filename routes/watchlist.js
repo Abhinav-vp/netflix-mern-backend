@@ -19,7 +19,7 @@ router.post("/", auth, async (req, res) => {
     const user = await User.findById(req.userId);
 
     // Check if already in watchlist
-    const exists = user.watchlist.some((item) => item.movieId === movieId);
+    const exists = user.watchlist.some((item) => String(item.movieId) === String(movieId));
     if (exists) {
       return res.status(400).json({ error: "Already in watchlist" });
     }

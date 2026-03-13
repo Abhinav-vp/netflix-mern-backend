@@ -62,7 +62,7 @@ export default function Watchlist() {
                 headers: { Authorization: `Bearer ${token}` }
             });
             // Update UI after successful removal
-            setWatchlist(watchlist.filter(item => item.movieId !== movieId));
+            setWatchlist(watchlist.filter(item => String(item.movieId) !== String(movieId)));
         } catch (error) {
             console.error("Failed to remove movie", error);
         }
